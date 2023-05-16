@@ -6,7 +6,7 @@ console.log(req.body)
 // Username
 User.findOne({
 where: {
-username: req.body.username
+login: req.body.username.login
 }
 }).then(user => {
 if (user) {
@@ -18,7 +18,7 @@ return;
 // Email
 User.findOne({
 where: {
-email: req.body.email
+email: req.body.username.email
 }
 }).then(user => {
 if (user) {
@@ -35,6 +35,7 @@ checkRolesExisted = (req, res, next) => {
 if (req.body.roles) {
 for (let i = 0; i < req.body.roles.length; i++) {
 if (!ROLES.includes(req.body.roles[i])) {
+
 res.status(400).send({
 message: "Failed! Role does not exist = " +
 req.body.roles[i]
